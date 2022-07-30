@@ -1,0 +1,42 @@
+﻿@using Shared
+
+<table>
+    <tr>
+        <td></td>
+        <th>Assigned Directly</th>
+        <th>Assigned By Reflection</th>
+    </tr>
+    <tr>
+        <th>Get Directly</th>
+        <td>@_AssignedDirectlyAndGetDirectly</td>
+        <td>@_AssignedByReflectionAndGetDirectly</td>
+    </tr>
+    <tr>
+        <th>Get By Reflection</th>
+        <td>@_AssignedDirectlyAndGetByReflection</td>
+        <td>@_AssignedByReflectionAndGetByReflection</td>
+    </tr>
+</table>
+
+
+
+@code {
+    private string? _AssignedDirectlyAndGetDirectly;
+
+    private string? _AssignedDirectlyAndGetByReflection;
+
+    private string? _AssignedByReflectionAndGetDirectly;
+
+    private string? _AssignedByReflectionAndGetByReflection;
+
+    protected override void OnInitialized()
+    {
+        var obj1 = Test.CreateInstanceOfTheClassHavingOver10KFields_AssignFiledValueDirectly();
+        var obj2 = Test.CreateInstanceOfTheClassHavingOver10KFields_AssignFiledValueByReflection();
+
+        _AssignedDirectlyAndGetDirectly = Test.GetFiledValueDirectly(obj1);
+        _AssignedDirectlyAndGetByReflection = Test.GetFiledValueByReflection(obj1);
+        _AssignedByReflectionAndGetDirectly = Test.GetFiledValueDirectly(obj2);
+        _AssignedByReflectionAndGetByReflection = Test.GetFiledValueByReflection(obj2);
+    }
+}
